@@ -11,8 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
-        <activity android:name="com.example.com.example.CuandoCorrer.MainActivity"
+        android:theme="@style/Theme.CuandoCorrer">
+        <activity android:name="com.example.CuandoCorrer.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

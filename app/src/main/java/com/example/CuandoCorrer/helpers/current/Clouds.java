@@ -1,5 +1,5 @@
 
-package com.example.CuandoCorrer.helpers;
+package com.example.CuandoCorrer.helpers.current;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;

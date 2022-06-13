@@ -1,5 +1,5 @@
 
-package com.example.CuandoCorrer.helpers;
+package com.example.CuandoCorrer.helpers.current;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

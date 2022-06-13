@@ -1,5 +1,5 @@
 
-package com.example.CuandoCorrer.helpers;
+package com.example.CuandoCorrer.helpers.current;
 
 import java.util.List;
 import javax.annotation.Generated;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("jsonschema2pojo")
-public class WeatherInterface {
+public class WeatherResult {
 
     @SerializedName("coord")
     @Expose
