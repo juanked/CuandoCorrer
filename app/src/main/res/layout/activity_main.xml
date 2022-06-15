@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view_item"
+<!--    <androidx.cardview.widget.CardView
+        android:id="@+id/card_current"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -81,7 +81,21 @@
                     android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/currentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/forecastRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/forecastRecyclerView"
@@ -89,21 +103,21 @@
         android:layout_height="match_parent"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="170dp"
         android:layout_marginBottom="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/currentRecyclerView" />
 
     <Button
-        android:id="@+id/botActualizar"
+        android:id="@+id/but_update"
         android:layout_width="191dp"
         android:layout_height="67dp"
         android:layout_marginEnd="159dp"
         android:layout_marginStart="158dp"
         android:layout_marginTop="0dp"
-        android:text="@string/actualizar"
+        android:text="@string/update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forecastRecyclerView" />

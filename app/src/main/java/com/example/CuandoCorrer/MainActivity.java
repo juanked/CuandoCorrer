@@ -1,60 +1,106 @@
 package com.example.CuandoCorrer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.CuandoCorrer.adapters.WeatherAdapter;
+import com.example.CuandoCorrer.adapters.CurrentWeatherAdapter;
+import com.example.CuandoCorrer.adapters.ForecastAdapter;
 import com.example.CuandoCorrer.helpers.current.WeatherResult;
 import com.example.CuandoCorrer.helpers.forecast.ForecastResult;
 import com.example.CuandoCorrer.helpers.remote.ApiUtils;
 import com.example.CuandoCorrer.helpers.remote.WeatherResponse;
-
-import java.util.HashMap;
-import java.util.List;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private String ApiKey = null;
     private String units = "metric";
-    private double nlat = 41.670081;
-    private double nlon = -3.689978;
-    private String lat = String.valueOf(nlat);
-    private String lon = String.valueOf(nlon);
-    private WeatherAdapter adapter;
+    private double latitude;
+    private double longitude;
+    private String lat=null;
+    private String lon=null;
+    private ForecastAdapter adapterForecast;
+    private CurrentWeatherAdapter adapterCurrent;
     private WeatherResponse response = ApiUtils.getWeatherResponse();
     private ForecastResult forecastResult;
+    private WeatherResult currentResult;
     //private ForecastResult forecastResult2;
     private RecyclerView forecastList;
+    private RecyclerView currentList;
+    private TextView temperatureTV;
+    private TextView windTV;
+    private TextView weatherTV;
+    private TextView timeTV;
+    private ImageView imWeatherIM;
+    private View currentCard;
+    private Location currentLocation;
+    //private LocationManagerService locationManager;
+    private FusedLocationProviderClient fusedLocationClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ApiKey = getString(R.string.open_weather_api);
+        Log.d("inicio","inicio");
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        findViewById(R.id.botActualizar).setOnClickListener(new View.OnClickListener() {
+        CharSequence text = "Updated!!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+        findViewById(R.id.but_update).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentData();
-                getForecast();
+                Log.d("boton", "se ha pulsado el boton");
+                getLocation();
+
+                toast.show();
             }
         });
+
+        /*temperatureTV = findViewById(R.id.txt_temperature);
+        windTV = findViewById(R.id.txt_wind);
+        weatherTV = findViewById(R.id.txt_weather);
+        timeTV = findViewById(R.id.txt_time);
+        imWeatherIM = findViewById(R.id.img_imWeather);
+        currentCard = findViewById(R.id.card_current);*/
+
+        currentList = (RecyclerView) findViewById(R.id.currentRecyclerView);
         forecastList = (RecyclerView) findViewById(R.id.forecastRecyclerView);
-        getForecast();
+        getLocation();
+        Log.d("Entrando","Entro en los metodos");
+        /*getCurrentData();
+        getForecast();*/
         forecastList.setLayoutManager(new LinearLayoutManager(this));
+        currentList.setLayoutManager(new LinearLayoutManager(this));
+
         //getForecast();
         //Log.d("forecast almacenado",forecastResult.toString());
-
-            adapter = new WeatherAdapter(forecastResult);
-            forecastList.setAdapter(adapter);
+        adapterCurrent = new CurrentWeatherAdapter(currentResult);
+        currentList.setAdapter(adapterCurrent);
+            adapterForecast = new ForecastAdapter(forecastResult);
+            forecastList.setAdapter(adapterForecast);
 
 
 
@@ -68,17 +114,29 @@ public class MainActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     WeatherResult weatherResult = response.body();
                     assert weatherResult != null;
-
-                    String stringCurrent =
+                    adapterCurrent.setCurrentResult(weatherResult);
+/*                    CurrentWeatherAdapter adapterCW =
+                            new CurrentWeatherAdapter(weatherResult,MainActivity.this, this);
+                    adapterCW.print();*/
+                    /*String stringCurrent =
                             "Temperature: " + weatherResult.getMain().getTemp() + "\n" +
                                     "Wind: " + weatherResult.getWind().getSpeed() + "\n" +
-                                    "Weather: " + weatherResult.getWeather().get(0).getMain();
+                                    "Weather: " + weatherResult.getWeather().get(0).getMain();*/
                     // TODO aparezcan datos en pantalla
-                    findViewById(R.id.txt_time)
+/*                    String tempP = weatherResult.getMain().getTemp().toString()+"ºC";
+                    temperatureTV.setText(tempP);
+                    String windP = weatherResult.getWind().getSpeed().toString();
+                    windTV.setText(windP);
+                    weatherTV.setText(weatherResult.getWeather().get(0).getMain());
+                    timeTV.setText(toDate(weatherResult.getDt(),getApplicationContext()));
+                    String image = weatherResult.getWeather().get(0).getIcon();
+                    Picasso.get().load("https://openweathermap.org/img/wn/"+image+"@2x.png").
+                            resize(100,100).into(imWeatherIM);*/
+
                    /* current.clear();
                     current.put("temperature",weatherResult.getMain().getTemp().toString());
                     current.put("wind",weatherResult.getWind().getSpeed().toString());*/
-                    Log.i("Resultado: ", stringCurrent);
+                    //Log.i("Resultado: ", stringCurrent);
                 }
             }
 
@@ -101,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Tamano forecastResult", forecastResult.getCnt().toString());
                     assert forecastResult != null;
                     //adapter.setForecastResult(forecastResult);
-                    String stringForecast = null;
+                    /*String stringForecast = null;
                     for (int i = 0; i < forecastResult.getCnt(); i++) {
                         stringForecast = stringForecast +
                                 "Time: " +
@@ -114,16 +172,8 @@ public class MainActivity extends AppCompatActivity {
                                 forecastResult.getList().get(i).getWeather().get(0).getMain() +
                                 "\n";
                     }
-                    Log.i("Resultado predicción", stringForecast);
-                    adapter.setForecastResult(forecastResult);
-                    /*try {
-                        adapter = new WeatherAdapter(forecastResult);
-                        forecastList.setAdapter(adapter);
-                        forecastList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    } catch (Exception e ){
-                        Log.e("Fallo en try", e.getMessage());
-                    }*/
-
+                    Log.i("Resultado predicción", stringForecast);*/
+                    adapterForecast.setForecastResult(forecastResult);
                 }
             }
 
@@ -137,8 +187,39 @@ public class MainActivity extends AppCompatActivity {
             //Log.d("Count forecast","Es nulo2222");
         //return forecastResult2;
     }
-    /*public void setForecastResult (ForecastResult forecastResult2){
-        forecastResult = forecastResult2;
-        adapter.notifyDataSetChanged();
-    }*/
+
+    private void getLocation(){
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+            // here to request the missing permissions, and then overriding
+            //public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        }
+        fusedLocationClient.getLastLocation().addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    lat= String.valueOf(latitude);
+                    lon= String.valueOf(longitude);
+                    Log.d("latitude",lat);
+                    Log.d("longitude",lon);
+                    getCurrentData();
+                    getForecast();
+                }
+            }
+        });
+
+        /*SharedPreferences sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong("latitude",latitude);
+        editor.putLong("longitude",longitude.longValue());
+        editor.apply();*/
+    }
+
 }

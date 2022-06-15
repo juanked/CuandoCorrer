@@ -7,6 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="good_temp">#76F824</color>
-    <color name="bad_temp">#FF4A4A</color>
+    <color name="good_temp">#7976F824</color>
+    <color name="bad_temp">#88FF4A4A</color>
 </resources>

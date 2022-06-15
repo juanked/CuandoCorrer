@@ -1,9 +1,6 @@
 package com.example.CuandoCorrer.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.icu.util.TimeZone;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +14,13 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
+public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
 
     private ForecastResult forecastResult;
     private Context context;
@@ -32,7 +28,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     private int userTemp = 20;
     private int userWind = 20;
     private boolean userRain = false;
-    public WeatherAdapter(ForecastResult forecastResult){
+    public ForecastAdapter(ForecastResult forecastResult){
         if (this.forecastResult == null)
             Log.d("Count forecast","Es nulo");
         this.forecastResult = forecastResult;
@@ -73,7 +69,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.weather.
                 setText(weather);
         //String timeP = String.valueOf(time);
-        holder.time.setText(toDate(time,holder.card.getContext()));
+        holder.time.setText(toTime(time,holder.card.getContext()));
+        holder.date.setText(toDate(time,holder.card.getContext()));
         image = forecastResult.getList().get(position).getWeather().get(0).getIcon();
         Picasso.get().load("https://openweathermap.org/img/wn/"+image+"@2x.png").
                 resize(100,100).into(holder.imWeather);
@@ -111,6 +108,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         private TextView wind;
         private TextView weather;
         private TextView time;
+        private TextView date;
         private ImageView imWeather;
         private View card;
         public ViewHolder (@NonNull View itemView){
@@ -119,18 +117,25 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             wind = (TextView) itemView.findViewById(R.id.txt_wind);
             weather = (TextView) itemView.findViewById(R.id.txt_weather);
             time = (TextView) itemView.findViewById(R.id.txt_time);
+            date = (TextView) itemView.findViewById(R.id.txt_date);
             imWeather = (ImageView) itemView.findViewById(R.id.img_imWeather);
             card = itemView.findViewById(R.id.card_view_item);
         }
     }
 
-    private String toDate (int unix_time,Context context){
+    private String toTime(int unix_time, Context context){
         Date date = new Date(unix_time*1000L);
-// the format of your date
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(context.getApplicationContext());
-        String time = dateFormat.format(date);
-        return time;
 
+        return dateFormat.format(date);
+    }
+
+    private String toDate(int unix_time, Context context){
+        Date date = new Date(unix_time*1000L);
+        //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context.getApplicationContext());
+
+        return dateFormat.format(date);
     }
 }

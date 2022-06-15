@@ -1,0 +1,29 @@
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="int_rain"
+        app:title="Enable rain running"/>
+
+    <EditTextPreference
+        app:key="num_maxTemp"
+        app:title="Min temperature (ºC)"
+        app:defaultValue="20" />
+
+    <EditTextPreference
+        app:key="num_minTemp"
+        app:title="Max temperature (ºC)"
+        app:defaultValue="20" />
+
+    <EditTextPreference
+        app:key="num_maxWind"
+        app:title="Max wind speed (km/h)"
+        app:defaultValue="20" />
+
+
+    <!--<Preference
+        app:key="feedback"
+        app:title="Send feedback"
+        app:summary="Report technical issues or suggest new features"/>-->
+
+</PreferenceScreen>
