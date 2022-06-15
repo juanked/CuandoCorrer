@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Cuando Correr</string>
     <string name="actualizar">Actualizar</string>
+    <string name="weatherImage" />
 </resources>
