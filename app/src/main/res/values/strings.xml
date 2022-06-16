@@ -14,7 +14,6 @@
     <string name="name_author">David Cristóbal</string>
     
     <!-- Weather nouns -->
-    <string name="clear">Clear</string>
     <string name="enable_rain">Enable rain running</string>
     <string name="min_temp">Min. temperature (ºC)</string>
     <string name="max_temp">Max. temperature (ºC)</string>
@@ -25,9 +24,23 @@
     <string name="locale_settings">Locale Settings</string>
     <string name="language_selector">Language selector</string>
     <string name="english">English</string>
+    <string name="version">version: </string>
 
-    <string-array name="languages">
-        <item>""</item>
-        <item>Spanish</item>
-    </string-array>
+    <!-- Weather conditions -->
+    <string name="thunderstorm">Thunderstorm</string>
+    <string name="drizzle">Drizzle</string>
+    <string name="rain">Rain</string>
+    <string name="snow">Snow</string>
+    <string name="mist">Mist</string>
+    <string name="smoke">Smoke</string>
+    <string name="haze">Haze</string>
+    <string name="dust">Dust</string>
+    <string name="fog">Fog</string>
+    <string name="sand">Sand</string>
+    <string name="ash">Ash</string>
+    <string name="squall">Squall</string>
+    <string name="tornado">Tornado</string>
+    <string name="clear">Clear</string>
+    <string name="clouds">Clouds</string>
+
 </resources>

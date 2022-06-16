@@ -21,4 +21,19 @@
     <string name="locale_settings">Configuración local</string>
     <string name="language_selector">Selector de idioma</string>
     <string name="english">Inglés</string>
+    <string name="version">"versión: "</string>
+    <string name="thunderstorm">Tormenta</string>
+    <string name="drizzle">Llovizna</string>
+    <string name="rain">Lluvia</string>
+    <string name="snow">Nieve</string>
+    <string name="mist">Niebla</string>
+    <string name="smoke">Humo</string>
+    <string name="haze">Niebla</string>
+    <string name="dust">Polvo</string>
+    <string name="fog">Niebla</string>
+    <string name="sand">Calima</string>
+    <string name="ash">Cenizas</string>
+    <string name="squall">Borrasca</string>
+    <string name="tornado">Tornado</string>
+    <string name="clouds">Nubes</string>
 </resources>

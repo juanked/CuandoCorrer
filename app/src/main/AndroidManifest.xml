@@ -11,16 +11,17 @@
         android:theme="@style/Theme.CuandoCorrer"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".About"
+            android:name="com.juanked.CuandoCorrer.About"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName="com.juanked.CuandoCorrer.MainActivity"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.juanked.CuandoCorrer.SettingsActivity"
             android:exported="false"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.juanked.CuandoCorrer.MainActivity" />
+<!--            android:label="@string/title_activity_settings"-->
+
         <activity
-            android:name=".MainActivity"
+            android:name="com.juanked.CuandoCorrer.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
