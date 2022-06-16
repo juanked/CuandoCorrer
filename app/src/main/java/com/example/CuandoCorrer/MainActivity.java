@@ -2,6 +2,7 @@ package com.example.CuandoCorrer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -10,12 +11,16 @@ import retrofit2.Response;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("inicio","inicio");
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        CharSequence text = "Updated!!";
+        CharSequence text = getString(R.string.updated);
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), text, duration);
         findViewById(R.id.but_update).setOnClickListener(new View.OnClickListener() {
@@ -97,13 +102,54 @@ public class MainActivity extends AppCompatActivity {
 
         //getForecast();
         //Log.d("forecast almacenado",forecastResult.toString());
-        adapterCurrent = new CurrentWeatherAdapter(currentResult);
+        adapterCurrent = new CurrentWeatherAdapter(currentResult,this);
         currentList.setAdapter(adapterCurrent);
-            adapterForecast = new ForecastAdapter(forecastResult);
-            forecastList.setAdapter(adapterForecast);
+        adapterForecast = new ForecastAdapter(forecastResult, this);
+        forecastList.setAdapter(adapterForecast);
 
 
 
+    }
+
+    @Override
+    protected void onPostResume() {
+        getLocation();
+        super.onPostResume();
+    }
+
+    @Override
+    protected void onStart() {
+        getLocation();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mymenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.settings:
+                Intent i = new Intent(getApplicationContext(),SettingsActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.about:
+                Intent j = new Intent(getApplicationContext(),About.class);
+                startActivity(j);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     void getCurrentData() {
@@ -215,11 +261,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         /*SharedPreferences sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong("latitude",latitude);
         editor.putLong("longitude",longitude.longValue());
         editor.apply();*/
     }
+
 
 }

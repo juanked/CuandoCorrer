@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Cuando Correr</string>
+    <string name="update">Actualizar</string>
+    <string name="about_title">Sobre esta aplicación</string>
+    <string name="about_author">Sobre el autor</string>
+    <string name="name_author">David Cristóbal</string>
+    <string name="clear">Claro</string>
+    <string name="app_description">Esta aplicación permite a sus usuarios fijar cuáles son las condiciones climáticas en las que se siente cómodo realizando ejercicio en el exterior. Ayuda a prevenir golpes de calor y otros problemas de salud causados por las condiciones climáticas.</string>
+    <string name="weatherImage">Icono del tiempo</string>
+    <string name="settings">Configuración</string>
+    <string name="about">Información</string>
+    <string name="enable_rain">Permitir correr bajo la lluvia</string>
+    <string name="min_temp">Temperatura mínima (ºC)</string>
+    <string name="max_temp">Temperatura máxima (ºC)</string>
+    <string name="max_wind">Velocidad máxima del viento (km/h)</string>
+    <string name="main_settings">Configuración principal</string>
+    <string name="updated">¡Actualizado!</string>
+    <string name="reset">Restaurar</string>
+    <string name="locale_settings">Configuración local</string>
+    <string name="language_selector">Selector de idioma</string>
+    <string name="english">Inglés</string>
+</resources>

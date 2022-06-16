@@ -1,25 +1,46 @@
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="int_rain"
-        app:title="Enable rain running"/>
+    <PreferenceCategory
+        app:key="main_settings"
+        app:title="@string/main_settings">
 
-    <EditTextPreference
-        app:key="num_maxTemp"
-        app:title="Min temperature (ºC)"
-        app:defaultValue="20" />
+        <SwitchPreferenceCompat
+            app:key="int_rain"
+            app:title="@string/enable_rain" />
 
-    <EditTextPreference
-        app:key="num_minTemp"
-        app:title="Max temperature (ºC)"
-        app:defaultValue="20" />
+        <EditTextPreference
+            app:defaultValue="10"
+            app:key="num_minTemp"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/min_temp" />
 
-    <EditTextPreference
-        app:key="num_maxWind"
-        app:title="Max wind speed (km/h)"
-        app:defaultValue="20" />
+        <EditTextPreference
+            app:defaultValue="30"
+            app:key="num_maxTemp"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/max_temp" />
 
+        <EditTextPreference
+            app:defaultValue="20"
+            app:key="num_maxWind"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/max_wind" />
+
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory
+        app:key="locale_settings"
+        app:title="@string/locale_settings">
+
+        <DropDownPreference
+            app:key="locale_selector"
+            app:title="@string/language_selector"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="@string/english"
+            app:entryValues="@array/languages"
+            />
+
+    </PreferenceCategory>-->
 
     <!--<Preference
         app:key="feedback"

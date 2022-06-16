@@ -1,6 +1,7 @@
 package com.example.CuandoCorrer.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,20 +19,27 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static java.lang.Integer.parseInt;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
 
     private ForecastResult forecastResult;
     private Context context;
     private String image;
-    private int userTemp = 20;
-    private int userWind = 20;
-    private boolean userRain = false;
-    public ForecastAdapter(ForecastResult forecastResult){
+    private String userMaxTemp;
+    private String userMinTemp;
+    private String userWind;
+    private boolean userRain;
+    private SharedPreferences prefs;
+
+    public ForecastAdapter(ForecastResult forecastResult, Context context){
         if (this.forecastResult == null)
             Log.d("Count forecast","Es nulo");
         this.forecastResult = forecastResult;
+        this.context = context;
     }
 
     public void setForecastResult(ForecastResult forecastResult){
@@ -55,11 +63,27 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         String weather = forecastResult.getList().get(position).getWeather().get(0).getMain();
         Log.i("forecastResult",weather);
         int time = forecastResult.getList().get(position).getDt();
-        if (temp > userTemp && wind < userWind && (weather.equals("Rain") == userRain)){
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        userRain = prefs.getBoolean("int_rain",false);
+        userMaxTemp = prefs.getString("num_maxTemp","30");
+        int userMTemp = parseInt(userMaxTemp);
+        userMinTemp = prefs.getString("num_minTemp","10");
+        int userminTemp = parseInt(userMinTemp);
+        userWind = prefs.getString("num_maxWind","20");
+        int userW = parseInt(userWind);
+
+        if(!userRain && weather.equals("Rain"))
+            userRain = false;
+        else if (!userRain && !weather.equals("Rain"))
+            userRain = true;
+
+        if (userminTemp < temp && temp < userMTemp && wind < userW && userRain){
             holder.card.setBackgroundColor(ContextCompat.getColor(holder.card.getContext(),R.color.good_temp));
         } else {
             holder.card.setBackgroundColor(ContextCompat.getColor( holder.card.getContext(),R.color.bad_temp));
         }
+
         String tempP = temp.toString()+"ºC";
         holder.temperature.
                 setText(tempP);
