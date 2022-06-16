@@ -1,23 +1,17 @@
 package com.juanked.CuandoCorrer;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.text.LineBreaker;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.CuandoCorrer.BuildConfig;
-import com.example.CuandoCorrer.R;
-import com.juanked.CuandoCorrer.adapters.Translator;
+import com.juanked.CuandoCorrer.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class About extends AppCompatActivity {
 
@@ -39,19 +33,16 @@ public class About extends AppCompatActivity {
 
         ImageView image = findViewById(R.id.img_github);
         Picasso.get().load("https://avatars.githubusercontent.com/u/48260809?v=4").
-                resize(300,300).into(image);
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://github.com/juanked"));
-                startActivity(intent);
-            }
+                resize(300, 300).into(image);
+        image.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("https://github.com/juanked"));
+            startActivity(intent);
         });
         TextView versionName = findViewById(R.id.txt_version);
-        String result = getString(R.string.version)+BuildConfig.VERSION_NAME;
+        String result = getString(R.string.version) + BuildConfig.VERSION_NAME;
         versionName.setText(result);
     }
 }

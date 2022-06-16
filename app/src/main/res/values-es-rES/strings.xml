@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Cuando Correr</string>
+    <string name="app_name">Cuándo Correr</string>
     <string name="update">Actualizar</string>
     <string name="about_title">Sobre esta aplicación</string>
     <string name="about_author">Sobre el autor</string>

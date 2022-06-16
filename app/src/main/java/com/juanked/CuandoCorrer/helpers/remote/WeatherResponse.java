@@ -19,8 +19,8 @@ public interface WeatherResponse {
 
     @GET("forecast?")
     Call<ForecastResult> getForecast(@Query("lat") String lat,
-                                           @Query("lon") String lon,
-                                           @Query("appid") String ApiKey,
-                                           @Query("units") String units);
+                                     @Query("lon") String lon,
+                                     @Query("appid") String ApiKey,
+                                     @Query("units") String units);
 
 }

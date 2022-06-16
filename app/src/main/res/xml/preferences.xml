@@ -11,40 +11,21 @@
         <EditTextPreference
             app:defaultValue="10"
             app:key="num_minTemp"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/min_temp" />
+            app:title="@string/min_temp"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             app:defaultValue="30"
             app:key="num_maxTemp"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/max_temp" />
+            app:title="@string/max_temp"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             app:defaultValue="20"
             app:key="num_maxWind"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/max_wind" />
+            app:title="@string/max_wind"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
-
-<!--    <PreferenceCategory
-        app:key="locale_settings"
-        app:title="@string/locale_settings">
-
-        <DropDownPreference
-            app:key="locale_selector"
-            app:title="@string/language_selector"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="@string/english"
-            app:entryValues="@array/languages"
-            />
-
-    </PreferenceCategory>-->
-
-    <!--<Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>-->
 
 </PreferenceScreen>
