@@ -1,6 +1,6 @@
 # When to Run
 [![Version](https://img.shields.io/github/v/release/juanked/CuandoCorrer?display_name=tag)](https://github.com/juanked/CuandoCorrer/releases/latest)
-[![Spanish](https://img.shields.io/badge/lang-es-blue)](https://github.com/juanked/CuandoCorrer/tree/v1.0.0#readme)
+[![Spanish](https://img.shields.io/badge/lang-es-blue)](https://github.com/juanked/CuandoCorrer/blob/main/README.md)
 
 This application allows its users to set weather conditions in which the user feels comfortable to do sport outdoors. It prevents sunstroke and other health problems that can be caused by weather conditions.
 

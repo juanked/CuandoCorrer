@@ -1,6 +1,6 @@
 # Cuando Correr
 [![Version](https://img.shields.io/github/v/release/juanked/CuandoCorrer?display_name=tag)](https://github.com/juanked/CuandoCorrer/releases/latest)
-[![English](https://img.shields.io/badge/lang-en-blue)](https://github.com/juanked/CuandoCorrer/tree/v1.0.0#readme.en)
+[![English](https://img.shields.io/badge/lang-en-blue)](https://github.com/juanked/CuandoCorrer/blob/main/README.en.md)
 
 Esta aplicación permite a sus usuarios fijar cuáles son las condiciones climáticas en las que se siente cómodo realizando ejercicio en el exterior. Ayuda a prevenir golpes de calor y otros problemas de salud causados por las condiciones climáticas.
 
